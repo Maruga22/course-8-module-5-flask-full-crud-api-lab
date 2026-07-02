@@ -8,6 +8,12 @@ def reset_data():
     events.append(Event(1, "Tech Meetup"))
     events.append(Event(2, "Python Workshop"))
 
+def test_root_route():
+    client = app.test_client()
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.get_json()["message"] == "Event API is running"
+
 def test_create_event():
     client = app.test_client()
     response = client.post("/events", json={"title": "Hackathon"})
